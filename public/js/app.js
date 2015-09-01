@@ -29,13 +29,12 @@ angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$cach
     };
 
     //Get our geo location
-    var cache = $cacheFactory('cordCache');
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
             $scope.$apply(function(){
                 var latitude = position["coords"]["latitude"];
                 var longitude = position["coords"]["longitude"];
+                console.log("lat" + latitude);
                 $http({
                     url: "/save-location",
                     method: "GET",
@@ -44,6 +43,8 @@ angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$cach
                 })
             });
         });
+    } else {
+        alert("We can't get your location!");
     }
 
     //Here we will get all need information
