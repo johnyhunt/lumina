@@ -19,9 +19,9 @@
                     </div>
                     <div class="collapse navbar-collapse" id="mynavbar-content">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="#">{{trans('messages.home')}}</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{trans('messages.about')}}
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -33,9 +33,9 @@
                                     <li><a href="#">Share holders</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Pricing</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Feedback</a></li>
+                            <li><a href="#">{{trans('messages.pricing')}}</a></li>
+                            <li><a href="#">{{trans('messages.contact')}}</a></li>
+                            <li><a href="#">{{trans('messages.feedback')}}</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('title')
+    Lumina Weather Responsive Website
+@stop
+
 @section('content')
 <div class="container">
     <div class="row">
