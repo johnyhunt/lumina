@@ -60,9 +60,9 @@ class LuminaWeather_API extends Model {
         $this->location = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&sensor=true"), true);
 
         $expiresAt = Carbon::now()->addMinutes(90);
-        Cache::add("weather", $this->weatherToday, $expiresAt);
-        Cache::add("forecast", $this->forecast, $expiresAt);
-        Cache::add("location", $this->location, $expiresAt);
+        Cache::put("weather", $this->weatherToday, $expiresAt);
+        Cache::put("forecast", $this->forecast, $expiresAt);
+        Cache::put("location", $this->location, $expiresAt);
 
     }
 
