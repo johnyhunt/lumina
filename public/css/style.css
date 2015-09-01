@@ -1,0 +1,34 @@
+h1,h2,h3,h4,h5,h6 {
+    padding: 0;
+    margin: 0;
+}
+
+.container {margin-top: 10px;}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 15px;
+    margin: 0 10px 0 0 ;
+}
+
+.add-location {margin: 0;}
+
+.weather-fluid {
+    height: 494px;
+    background: url("../img/europe-day.jpg");
+    margin-top: 30px;
+    color: white;
+}
+
+.weather-fluid h3 {
+    font-size: 1.25vw;
+}
+
+.footer {
+    background: #e6e6e6;
+}

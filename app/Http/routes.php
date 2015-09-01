@@ -12,3 +12,11 @@
 */
 
 Route::get('/', ['as' => 'index', 'uses' => 'Weather\IndexController@index']);
+Route::get('/save-location', 'Weather\IndexController@saveLocation');
+Route::get('/chooseLang', 'Weather\IndexController@chooseLang');
+
+//Info routes
+Route::get('/current-weather', 'Weather\IndexController@getCurrentWeatherAction');
+Route::get('/current-date', 'Weather\IndexController@getCurrentDateAction');
+Route::get('/current-city', 'Weather\IndexController@getCurrentLocationAction');
+Route::post('/forecast', 'Weather\IndexController@getForecastAction');
