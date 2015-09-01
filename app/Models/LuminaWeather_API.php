@@ -114,6 +114,7 @@ class LuminaWeather_API extends Model {
         }
 
         $allLocation = $this->location["results"];
+        dd($allLocation);
 
         foreach($allLocation as $val) {
             if ($val["types"][0] == "street_address" || $val["types"][0] == "route") {
@@ -124,8 +125,6 @@ class LuminaWeather_API extends Model {
                 }
             }
         }
-
-        dd($allLocation);
 
         return "Not Found";
     }
