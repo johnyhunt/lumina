@@ -125,6 +125,8 @@ class LuminaWeather_API extends Model {
             }
         }
 
+        dd($allLocation);
+
         return "Not Found";
     }
 
