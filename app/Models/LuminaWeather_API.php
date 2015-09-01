@@ -45,6 +45,7 @@ class LuminaWeather_API extends Model {
         $this->weatherToday = json_decode(file_get_contents("http://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude"), true);
         $this->forecast = json_decode(file_get_contents("http://api.openweathermap.org/data/2.5/forecast?lat=$latitude&lon=$longitude"), true);
         $this->location = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&sensor=true"), true);
+        dd($this->location);
 
         Cache::put("weather", $this->weatherToday, 60);
         Cache::put("forecast", $this->forecast, 60);
@@ -114,7 +115,6 @@ class LuminaWeather_API extends Model {
         }
 
         $allLocation = $this->location["results"];
-        dd($allLocation);
 
         foreach($allLocation as $val) {
             if ($val["types"][0] == "street_address" || $val["types"][0] == "route") {

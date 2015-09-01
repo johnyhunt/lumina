@@ -22,7 +22,6 @@ class IndexController extends Controller {
         $latitude = Cache::get("latitude");
         $longitude = Cache::get("longitude");
         $api->__init($longitude, $latitude);
-        $api->getCity();
 
         return view ("index.index");
     }
