@@ -45,11 +45,10 @@ class LuminaWeather_API extends Model {
         $this->weatherToday = json_decode(file_get_contents("http://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude"), true);
         $this->forecast = json_decode(file_get_contents("http://api.openweathermap.org/data/2.5/forecast?lat=$latitude&lon=$longitude"), true);
         $this->location = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&sensor=true"), true);
-        echo ($longitude);
-        echo $latitude;
-        Cache::put("weather", $this->weatherToday, 60);
-        Cache::put("forecast", $this->forecast, 60);
-        Cache::put("location", $this->location, 60);
+
+        Cache::add("weather", $this->weatherToday, 60);
+        Cache::add("forecast", $this->forecast, 60);
+        Cache::add("location", $this->location, 60);
     }
 
     /**
@@ -61,9 +60,12 @@ class LuminaWeather_API extends Model {
         if(empty($this->weatherToday)) {
             $this->weatherToday = Cache::get("weather");
         }
+
         $tempValue = round($this->weatherToday["main"]["temp"] - 273);
         $icon = $this->weatherToday["weather"][0]["icon"];
-        return array("temp" => $tempValue, "icon" => $icon);
+        $description = $this->weatherToday["weather"][0]["description"];
+
+        return array("temp" => $tempValue, "icon" => $icon, "desc" => $description);
     }
 
     /**
@@ -72,6 +74,9 @@ class LuminaWeather_API extends Model {
      * @return array
      */
     public function getWindInfo() {
+        if(empty($this->weatherToday)) {
+            $this->weatherToday = Cache::get("weather");
+        }
         $windSpeed = $this->weatherToday["wind"]["speed"];
         $windDegree = $this->weatherToday["wind"]["deg"];
         return array("speed" => $windSpeed, "deg" => $windDegree);
@@ -99,7 +104,6 @@ class LuminaWeather_API extends Model {
         if(empty($this->location)) {
             return Cache::get("location");
         }
-
         return $this->location;
     }
 
@@ -125,8 +129,7 @@ class LuminaWeather_API extends Model {
                 }
             }
         }
-
-        return "Not Found";
+        return "London"; //Ass default
     }
 
     /**

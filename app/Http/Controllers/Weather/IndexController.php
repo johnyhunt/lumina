@@ -68,6 +68,14 @@ class IndexController extends Controller {
     }
 
     /**
+     * Get wind information
+     */
+    public function getWindAction() {
+        $api = new LuminaWeather_API();
+        return $api->getWindInfo();
+    }
+
+    /**
      * Choose lang
      *
      * @param Request $request
