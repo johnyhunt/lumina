@@ -21,4 +21,4 @@ Route::get('/current-date', 'Weather\IndexController@getCurrentDateAction');
 Route::get('/current-city', 'Weather\IndexController@getCurrentLocationAction');
 Route::get('/wind', 'Weather\IndexController@getWindAction');
 
-Route::get('/forecast', 'Weather\IndexController@getForecastAction');
+Route::post('/forecast', 'Weather\IndexController@getForecastAction');

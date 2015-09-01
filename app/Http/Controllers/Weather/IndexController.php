@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LuminaWeather_API;
 use Cache;
+use Carbon\Carbon;
 
 class IndexController extends Controller {
     /**
@@ -30,8 +31,9 @@ class IndexController extends Controller {
      * Get location and save/cache it
      */
     public function saveLocation (Request $request) {
-        Cache::put('latitude', $request->input("latitude"), 60);
-        Cache::put('longitude', $request->input("longitude"), 60);
+        $expiresAt = Carbon::now()->addMinutes(60);
+        Cache::add('latitude', $request->input("latitude"), $expiresAt);
+        Cache::add('longitude', $request->input("longitude"), $expiresAt);
         return "200 OK";
     }
 

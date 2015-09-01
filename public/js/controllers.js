@@ -1,8 +1,9 @@
 /**
  * Angular controller
  */
-angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$cacheFactory", "weatherService", function($scope, $http, $cacheFactory, weatherService) {
+angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$window", "weatherService", function($scope, $http, $window, weatherService) {
 
+    //Create function for our service
     $scope.weatherService = function () {
         $scope.weatherDescription = "Fetching . . .";
         weatherService.getWeather($scope.jscity).then(function (data) {
@@ -14,7 +15,7 @@ angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$cach
 
     //Get our geo location
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
+        $window.navigator.geolocation.getCurrentPosition(function(position){
             $scope.$apply(function(){
                 var latitude = position["coords"]["latitude"];
                 var longitude = position["coords"]["longitude"];
@@ -22,13 +23,19 @@ angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$cach
                     url: "/save-location",
                     method: "GET",
                     params: {latitude: latitude, longitude: longitude},
-
+                    cache: true
                 })
             });
+            //location.reload();
         }, function(error) {
             console.log(error);
-        }, {timeout: 30000, enableHighAccuracy: true, maximumAge: 75000});
+        }, {timeout: 10000000, enableHighAccuracy: true, maximumAge: 0});
     }
+
+    //Five days weather
+    $http.post('/forecast').success(function(response) {
+        $scope.forecast = response;
+    });
 
     //Here we will get all need information
     //Today's weather
@@ -48,14 +55,10 @@ angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$cach
         $scope.city = response;
     });
 
-    //Five days weather
-    $http.get('/forecast').success(function(response) {
-        $scope.forecast = response;
-    });
+
 
     //Wind
     $http.get('/wind').success(function(response) {
-        console.log(response);
         $scope.wind = response;
     });
 

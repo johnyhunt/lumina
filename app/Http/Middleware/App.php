@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: John
- * Date: 20.07.2015
- * Time: 18:44
- */
 
 namespace App\Http\Middleware;
 
@@ -19,7 +13,7 @@ class App {
      *
      * @array $languages
      */
-    protected $languages = ['ru','en'];
+    protected $languages = ['en','ru'];
 
     /**
      * Handle an incoming request.
@@ -30,7 +24,7 @@ class App {
      */
     public function handle($request, Closure $next) {
         if(!Session::has('locale'))  {
-            Session::put('locale', $request->getPreferredLanguage($this->languages));
+            Session::put('locale', 'en');
         }
 
         \App::setLocale(\Session::get("locale"));

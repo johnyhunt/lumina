@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cache;
+use Carbon\Carbon;
 
 class LuminaWeather_API extends Model {
 
@@ -39,16 +40,30 @@ class LuminaWeather_API extends Model {
      * @param $latitude
      */
     public function __init($longitude, $latitude) {
+
+        //Save situation
+        if ($latitude == null || $longitude == null) {
+            $latitude = 51.5085300;
+            $longitude = -0.1257400;
+        }
+
         $this->longitude = $longitude;
         $this->latitude = $latitude;
 
+        //Current weather api: http://api.openweathermap.org/data/2.5/weather
         $this->weatherToday = json_decode(file_get_contents("http://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude"), true);
+
+        //Forecast api: http://api.openweathermap.org/data/2.5/forecast
         $this->forecast = json_decode(file_get_contents("http://api.openweathermap.org/data/2.5/forecast?lat=$latitude&lon=$longitude"), true);
+
+        //Current location api:http://maps.googleapis.com/maps/api/geocode/
         $this->location = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&sensor=true"), true);
 
-        Cache::add("weather", $this->weatherToday, 60);
-        Cache::add("forecast", $this->forecast, 60);
-        Cache::add("location", $this->location, 60);
+        $expiresAt = Carbon::now()->addMinutes(90);
+        Cache::add("weather", $this->weatherToday, $expiresAt);
+        Cache::add("forecast", $this->forecast, $expiresAt);
+        Cache::add("location", $this->location, $expiresAt);
+
     }
 
     /**
@@ -166,6 +181,8 @@ class LuminaWeather_API extends Model {
             $icon = $val["weather"][0]["icon"];
             $result[] = array("min" => $tempMin, "max" => $tempMax, "day" => $day, "icon" => $icon);
         }
+
+        unset($result[count($result) - 1]);
 
         return $result;
     }

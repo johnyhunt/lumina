@@ -11,7 +11,7 @@ angular.module("lmnApp",[]).factory('weatherService', function ($http) {
                     q: city
                 }
             }).then(function(response) {
-                return "Desc: " + response.data.weather[0].description + ", Temp: " + (response.data.main.temp - 273).toFixed() + "°C";
+                return response.data.weather[0].description + ", " + (response.data.main.temp - 273).toFixed() + "°C";
             })
         }
     }
@@ -19,7 +19,6 @@ angular.module("lmnApp",[]).factory('weatherService', function ($http) {
 
 //JQuery Part
 $(document).ready(function() {
-
     var currentDate = new Date();
     var hours = currentDate.getHours();
 

@@ -1,6 +1,7 @@
 <div class="page-header">
     <div class="row">
         <div class="col-lg-6" style="padding-top: 5px">
+            <!--Logo and choose lang-->
             <img src="img/luminalogo.png">
             <a href="/chooseLang?lang=en">en</a> |
             <a href="/chooseLang?lang=ru">ru</a>
