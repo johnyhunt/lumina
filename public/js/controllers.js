@@ -1,8 +1,8 @@
 /**
  * Angular controller
  */
-angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$window", "$cacheFactory", "weatherService",
-    function ($scope, $http, $window, $cacheFactory, weatherService) {
+angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$window", "weatherService",
+    function ($scope, $http, $window, weatherService) {
 
         //Create function for our service
         $scope.weatherService = function () {
@@ -15,28 +15,22 @@ angular.module("lmnApp").controller("MainController", ["$scope", "$http", "$wind
         };
 
         //Get our geo location
-        var cache = $cacheFactory('lumina');
-        if (cache.get("save") == false) {
-            if (navigator.geolocation) {
-                $window.navigator.geolocation.getCurrentPosition(function (position) {
-                    $scope.$apply(function () {
-                        var latitude = position["coords"]["latitude"];
-                        var longitude = position["coords"]["longitude"];
-                        $http({
-                            url: "/save-location",
-                            method: "GET",
-                            params: {latitude: latitude, longitude: longitude},
-                            cache: true
-                        })
-                    });
-                    cache.put("save", true);
-                    location.reload();
-                }, function (error) {
-                    console.log(error);
-                }, {timeout: 10000000, enableHighAccuracy: true, maximumAge: 0});
-            }
+        if (navigator.geolocation) {
+            $window.navigator.geolocation.getCurrentPosition(function (position) {
+                $scope.$apply(function () {
+                    var latitude = position["coords"]["latitude"];
+                    var longitude = position["coords"]["longitude"];
+                    $http({
+                        url: "/save-location",
+                        method: "GET",
+                        params: {latitude: latitude, longitude: longitude},
+                        cache: true
+                    })
+                });
+            }, function (error) {
+                console.log(error);
+            }, {timeout: 10000000, enableHighAccuracy: true, maximumAge: 0});
         }
-
 
         //Five days weather
         $http.post('/forecast').success(function (response) {
