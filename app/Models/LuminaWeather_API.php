@@ -59,6 +59,9 @@ class LuminaWeather_API extends Model {
         //Current location api:http://maps.googleapis.com/maps/api/geocode/
         $this->location = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&sensor=true"), true);
 
+        //If it's Laravel use Cache
+        //If use in another file/framework
+        //Delete and use __init() in every need part of project
         $expiresAt = Carbon::now()->addMinutes(90);
         Cache::put("weather", $this->weatherToday, $expiresAt);
         Cache::put("forecast", $this->forecast, $expiresAt);
@@ -182,7 +185,9 @@ class LuminaWeather_API extends Model {
             $result[] = array("min" => $tempMin, "max" => $tempMax, "day" => $day, "icon" => $icon);
         }
 
-        unset($result[count($result) - 1]);
+        if(count($result) > 4) {
+            unset($result[count($result) - 1]);
+        }
 
         return $result;
     }

@@ -16,6 +16,7 @@
     {!! HTML::script('js/lib/jquery/jquery-2.1.4.js')!!}
     {!! HTML::script('js/lib/bootstrap/bootstrap.js') !!}
     {!! HTML::script('js/lib/angular/angular-1.4.4.js') !!}
+    {!! HTML::script('js/lib/other/bootstrap.youtubepopup.js') !!}
 </head>
 
 <body ng-controller="MainController">
@@ -41,30 +42,32 @@
             <h4 ng-bind="weatherDescription"></h4>
         </div>
 
+        <!--Videos block-->
         <div class="row" style="margin: 40px 0 10px 0">
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <h2>{{trans('messages.daily_video')}}</h2>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                <img src="img/video1.jpg">
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                <img src="img/video2.jpg">
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                <img src="img/video3.jpg">
+
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12" ng-repeat="val in videos">
+                <a href="@{{val['url']}}" class="youtube">
+                    <img src="@{{val['img']}}">
+                    <span class="video_icon"></span>
+                </a>
             </div>
         </div>
     </div>
 
+    <!--Here will display weather block-->
     @include("parts.weather")
 
+    <!--Content-->
     @yield("content")
 
+    <!--Footer-->
     @include("parts.footer")
 
 </body>
-    <!--Inline scripts-->
+<!--Inline scripts-->
 {!! HTML::script('js/app.js') !!}
 {!! HTML::script('js/controllers.js') !!}
 </html>

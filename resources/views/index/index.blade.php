@@ -14,7 +14,7 @@
         <div class="col-lg-4 col-sm-6 col-xs-12" ng-repeat="val in news">
             <div class="thumbnail">
                 <div class="caption">
-                    <img src="img/@{{val['img']}}">
+                    <img src="@{{val['img']}}">
                     <h3 ng-bind="val['title']"></h3>
                     <p class="text-justify" ng-bind="val['body']"></p>
                     <p><a href="#" class="btn btn-primary">Read More</a></p>

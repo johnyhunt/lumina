@@ -25,4 +25,10 @@ $(document).ready(function() {
     if (hours > 18 || (hours > 0 && hours < 6)) {
         $(".weather-fluid").css("background", "url('../img/europe-night.jpg')");
     }
+
+    $(".youtube").YouTubeModal({
+        autoplay:0,
+        width:640,
+        height:480
+    });
 });
