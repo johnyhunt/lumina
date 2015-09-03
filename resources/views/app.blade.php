@@ -44,11 +44,11 @@
 
         <!--Videos block-->
         <div class="row" style="margin: 40px 0 10px 0">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <h2>{{trans('messages.daily_video')}}</h2>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" ng-repeat="val in videos">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 youtube-block" ng-repeat="val in videos">
                 <a href="@{{val['url']}}" class="youtube">
                     <img src="@{{val['img']}}">
                     <span class="video_icon"></span>
