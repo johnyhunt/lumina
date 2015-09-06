@@ -13,6 +13,19 @@ use Cache;
 use Carbon\Carbon;
 
 class IndexController extends Controller {
+
+    /**
+     * @var LuminaWeather_API
+     */
+    private $api;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->api = new LuminaWeather_API();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,40 +54,35 @@ class IndexController extends Controller {
      * Get current weather. Can use in any part of project
      */
     public function getCurrentWeatherAction() {
-        $api = new LuminaWeather_API();
-        return $api->getIconTemperature();
+        return $this->api->getIconTemperature();
     }
 
     /**
      * Get current date. Can use in any part of project
      */
     public function getCurrentDateAction() {
-        $api = new LuminaWeather_API();
-        return $api->getCurrentDateInfo();
+        return $this->api->getCurrentDateInfo();
     }
 
     /**
      * Get city location. Can use in any part of project
      */
     public function getCurrentLocationAction() {
-        $api = new LuminaWeather_API();
-        return $api->getCity();
+        return $this->api->getCity();
     }
 
     /**
      * Get five days weather
      */
     public function getForecastAction () {
-        $api = new LuminaWeather_API();
-        return $api->getFiveDaysWeather();
+        return $this->api->getFiveDaysWeather();
     }
 
     /**
      * Get wind information
      */
     public function getWindAction() {
-        $api = new LuminaWeather_API();
-        return $api->getWindInfo();
+        return $this->api->getWindInfo();
     }
 
     /**
